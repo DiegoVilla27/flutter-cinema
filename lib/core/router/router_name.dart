@@ -3,5 +3,5 @@
 /// This class contains static constants representing the names
 /// of different routes used in the app.
 class AppRouterName {
-  static const String videos = 'videos';
+  static const String home = 'home';
 }
