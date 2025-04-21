@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cinema/core/router/router_config.dart';
+import 'package:flutter_cinema/core/theme/providers/app_theme_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(_, WidgetRef ref) {
+    final appThemeNotifier = ref.watch(appThemeNotifierProvider);
+
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Cinema',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const Text('Flutter Demo Home Page'),
+      theme: appThemeNotifier.get(),
+      routerConfig: AppRouter.router,
     );
   }
 }
