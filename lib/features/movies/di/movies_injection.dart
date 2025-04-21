@@ -4,6 +4,11 @@ import 'package:flutter_cinema/features/movies/data/repositories/movies_reposito
 import 'package:flutter_cinema/features/movies/domain/repositories/movies_repository.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies.dart';
 
+/// Initializes dependency injections for the movies feature.
+/// 
+/// This function registers lazy singletons for the data source, repository,
+/// and use case related to movies. It ensures that the necessary components
+/// are available for dependency injection throughout the application.
 Future<void> initMoviesInjections() async {
   // Data sources
   di.registerLazySingleton<MoviesApiDataSourceImpl>(
