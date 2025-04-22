@@ -30,10 +30,17 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   /// [page] The page number to retrieve.
   @override
   Future<MovieResponseModel> getMovies(int page) async {
-    final res = await dio.get<MovieResponseModel>(
-      '/movie/now_playing',
-      queryParameters: {'page': page},
-    );
-    return Future.value(res.data);
+    try {
+      final res = await dio.get(
+        '/movie/now_playing',
+        queryParameters: {'page': page},
+      );
+      MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
+        res.data,
+      );
+      return movieResponseModel;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

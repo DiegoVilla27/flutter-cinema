@@ -4,13 +4,13 @@ import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart
 /// pagination details and a list of movie entities.
 /// 
 /// Attributes:
-/// - `dates`: Optional date range for the movies.
+/// - `dates`: Date range for the movies.
 /// - `page`: Current page number of the results.
 /// - `results`: List of movies returned in the response.
 /// - `totalPages`: Total number of pages available.
 /// - `totalResults`: Total number of movie results available.
 class MovieResponseEntity {
-  DatesResponseEntity? dates;
+  DatesResponseEntity dates;
   int page;
   List<MovieEntity> results;
   int totalPages;

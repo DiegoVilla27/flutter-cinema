@@ -49,7 +49,7 @@ class MovieModel {
     overview: json['overview'] ?? '',
     popularity: (json['popularity'] ?? 0).toDouble(),
     posterPath: json['poster_path'] ?? '',
-    releaseDate: json['release_date'] ?? '',
+    releaseDate: DateTime.parse(json['release_date']),
     title: json['title'] ?? '',
     video: json['video'] ?? false,
     voteAverage: (json['vote_average'] ?? 0).toDouble(),
@@ -66,7 +66,8 @@ class MovieModel {
     'overview': overview,
     'popularity': popularity,
     'poster_path': posterPath,
-    'release_date': releaseDate,
+    "release_date":
+        "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
     'title': title,
     'video': video,
     'vote_average': voteAverage,

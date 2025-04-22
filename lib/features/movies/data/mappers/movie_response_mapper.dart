@@ -5,23 +5,20 @@ import 'package:flutter_cinema/features/movies/domain/entities/movie_response_en
 /// Converts a [MovieResponseModel] to a [MovieResponseEntity].
 ///
 /// Maps the dates, page, results, total pages, and total results
-/// from the model to the entity. Utilizes [DatesMapper] and
+/// from the model to the entity. Utilizes [DatesResponseMapper] and
 /// [MovieMapper] for nested conversions.
 class MovieResponseMapper {
   static MovieResponseEntity movieResponseModelToEntity(
-    MovieResponseModel movie,
+    MovieResponseModel movieResponse,
   ) => MovieResponseEntity(
-    dates:
-        (movie.dates != null)
-            ? DatesMapper.datesResponseModelToEntity(movie.dates!)
-            : null,
-    page: movie.page,
+    dates: DatesResponseMapper.datesResponseModelToEntity(movieResponse.dates),
+    page: movieResponse.page,
     results:
-        movie.results
+        movieResponse.results
             .map((movie) => MovieMapper.movieModelToEntity(movie))
             .toList(),
-    totalPages: movie.totalPages,
-    totalResults: movie.totalResults,
+    totalPages: movieResponse.totalPages,
+    totalResults: movieResponse.totalResults,
   );
 }
 
@@ -29,10 +26,8 @@ class MovieResponseMapper {
 ///
 /// Maps the maximum and minimum date values from the model
 /// to the entity.
-class DatesMapper {
+class DatesResponseMapper {
   static DatesResponseEntity datesResponseModelToEntity(
-    DatesResponseModel model,
-  ) {
-    return DatesResponseEntity(maximum: model.maximum, minimum: model.minimum);
-  }
+    DatesResponseModel dates,
+  ) => DatesResponseEntity(maximum: dates.maximum, minimum: dates.minimum);
 }
