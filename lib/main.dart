@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cinema/core/di/injections.dart';
 import 'package:flutter_cinema/core/router/router_config.dart';
+import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/core/theme/providers/app_theme_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,6 +39,7 @@ class MyApp extends ConsumerWidget {
       title: 'Flutter Cinema',
       theme: appThemeNotifier.get(),
       routerConfig: AppRouter.router,
+      scaffoldMessengerKey: scaffoldMessengerKey,
     );
   }
 }

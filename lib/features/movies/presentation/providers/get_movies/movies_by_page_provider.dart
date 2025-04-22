@@ -1,5 +1,7 @@
+import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/get_movies/movies_usecase_provider.dart';
+import 'package:flutter_cinema/shared/widgets/snackbar/snackbar_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provides an [AsyncNotifierProvider] for managing the state of movie data
@@ -32,7 +34,15 @@ class MoviesNotifier extends AsyncNotifier<MovieResponseEntity> {
   /// Fetches movies for the initial current page.
   Future<MovieResponseEntity> _fetchMovies() async {
     final getMoviesUseCase = ref.read(getMoviesUseCaseProvider);
-    return await getMoviesUseCase(_currentPage);
+
+    try {
+      return await getMoviesUseCase(_currentPage);
+    } catch (e) {
+      scaffoldMessengerKey.currentState?.showSnackBar(
+        SnackBarCustom.open(e.toString(), SnackbarType.error),
+      );
+      rethrow;
+    }
   }
 
   /// Updates the state with loading and fetched data.

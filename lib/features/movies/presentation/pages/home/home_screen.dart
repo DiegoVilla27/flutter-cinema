@@ -64,7 +64,7 @@ class HomeScreen extends ConsumerWidget {
                   ],
                 ),
             loading: () => Center(child: const CircularProgressIndicator()),
-            error: (error, _) => Text('Error: $error'),
+            error: (error, stack) => SizedBox(),
           ),
         ),
       ),

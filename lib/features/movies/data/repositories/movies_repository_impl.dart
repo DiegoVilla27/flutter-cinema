@@ -13,20 +13,16 @@ class MoviesRepositoryImpl implements MoviesRepository {
   /// Fetches a list of movies for a given page number.
   ///
   /// This method retrieves movie data from the data source and maps it
-  /// to a domain entity. It handles any exceptions by rethrowing them.
+  /// to a domain entity.
   ///
   /// [page] The page number for which to fetch movies.
   ///
   /// Returns a [Future] containing a [MovieResponseEntity] with the movie data.
   @override
   Future<MovieResponseEntity> getMovies(int page) async {
-    try {
-      final MovieResponseModel res = await moviesDataSourceImpl.getMovies(page);
-      MovieResponseEntity movieResponseEntity =
-          MovieResponseMapper.movieResponseModelToEntity(res);
-      return movieResponseEntity;
-    } catch (e) {
-      rethrow;
-    }
+    final MovieResponseModel res = await moviesDataSourceImpl.getMovies(page);
+    MovieResponseEntity movieResponseEntity =
+        MovieResponseMapper.movieResponseModelToEntity(res);
+    return movieResponseEntity;
   }
 }

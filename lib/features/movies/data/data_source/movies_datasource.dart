@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cinema/core/environments/environments.dart';
+import 'package:flutter_cinema/core/errors/errors_handler.dart';
 import 'package:flutter_cinema/features/movies/data/models/movie_response_model.dart';
 
 /// An abstract class defining the contract for a data source that fetches
@@ -22,12 +23,12 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
 
   /// Fetches a list of movies currently playing in theaters.
   ///
-  /// This method sends a GET request to the '/movie/now_playing' endpoint
-  /// with the specified page number as a query parameter.
+  /// Retrieves movie data from the API using the specified page number for pagination.
+  /// Returns a [MovieResponseModel] containing the movie data.
   ///
-  /// Returns a [Future] containing a [MovieResponseModel] with the movie data.
+  /// Throws an exception if the API call fails, which is handled by the [ExceptionHandler].
   ///
-  /// [page] The page number to retrieve.
+  /// [page] The page number for pagination.
   @override
   Future<MovieResponseModel> getMovies(int page) async {
     try {
@@ -39,8 +40,8 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
         res.data,
       );
       return movieResponseModel;
-    } catch (e) {
-      rethrow;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
     }
   }
 }
