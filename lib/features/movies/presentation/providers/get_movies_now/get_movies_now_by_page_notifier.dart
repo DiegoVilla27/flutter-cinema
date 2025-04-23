@@ -1,18 +1,18 @@
 import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies/movies_usecase_provider.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_usecase_provider.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provides an [AsyncNotifierProvider] for managing the state of movie data
-/// asynchronously. The provider uses [MoviesNotifier] to fetch and handle
+/// asynchronously. The provider uses [MoviesNowNotifier] to fetch and handle
 /// movie responses, returning a [MovieResponseEntity] as the state.
-final moviesNotifierProvider =
-    AsyncNotifierProvider<MoviesNotifier, MovieResponseEntity>(
-      () => MoviesNotifier(),
+final moviesNowNotifierProvider =
+    AsyncNotifierProvider<MoviesNowNotifier, MovieResponseEntity>(
+      () => MoviesNowNotifier(),
     );
 
-class MoviesNotifier extends AsyncNotifier<MovieResponseEntity> {
+class MoviesNowNotifier extends AsyncNotifier<MovieResponseEntity> {
   int _currentPage = 1;
 
   /// Asynchronously builds and returns a [MovieResponseEntity] by invoking
@@ -35,7 +35,7 @@ class MoviesNotifier extends AsyncNotifier<MovieResponseEntity> {
   /// [getMoviesUseCaseProvider]. Displays an error snackbar if the
   /// operation fails and rethrows the exception.
   Future<MovieResponseEntity> _fetchMovies() async {
-    final getMoviesUseCase = ref.read(getMoviesUseCaseProvider);
+    final getMoviesUseCase = ref.read(getNowMoviesUseCaseProvider);
 
     try {
       return await getMoviesUseCase(_currentPage);

@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/now_playing/swiper/movies_swiper_widget.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies/get_movies_providers.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/swiper/movies_swiper_widget.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_by_page_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MoviesNowPlaying extends ConsumerWidget {
@@ -9,8 +9,7 @@ class MoviesNowPlaying extends ConsumerWidget {
 
   @override
   Widget build(_, WidgetRef ref) {
-    final moviesAsync = ref.watch(moviesNotifierProvider);
-    // final moviesNotifier = ref.read(moviesNotifierProvider.notifier);
+    final moviesAsync = ref.watch(moviesNowNotifierProvider);
 
     return SizedBox(
       height: 210,

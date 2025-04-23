@@ -8,12 +8,12 @@ import 'package:flutter_cinema/features/movies/domain/repositories/movies_reposi
 ///
 /// The [call] method takes an integer [page] as a parameter and returns
 /// a [Future] that resolves to a [MovieResponseEntity].
-class GetMoviesUseCase {
+class GetMoviesNowUseCase {
   final MoviesRepository repository;
 
-  GetMoviesUseCase({required this.repository});
+  GetMoviesNowUseCase({required this.repository});
 
   Future<MovieResponseEntity> call(int page) {
-    return repository.getMovies(page);
+    return repository.getMoviesNow(page);
   }
 }

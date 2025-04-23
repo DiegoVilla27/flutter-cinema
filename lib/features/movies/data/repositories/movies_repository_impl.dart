@@ -19,8 +19,8 @@ class MoviesRepositoryImpl implements MoviesRepository {
   ///
   /// Returns a [Future] containing a [MovieResponseEntity] with the movie data.
   @override
-  Future<MovieResponseEntity> getMovies(int page) async {
-    final MovieResponseModel res = await moviesDataSourceImpl.getMovies(page);
+  Future<MovieResponseEntity> getMoviesNow(int page) async {
+    final MovieResponseModel res = await moviesDataSourceImpl.getMoviesNow(page);
     MovieResponseEntity movieResponseEntity =
         MovieResponseMapper.movieResponseModelToEntity(res);
     return movieResponseEntity;

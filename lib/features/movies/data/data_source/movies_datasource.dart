@@ -9,7 +9,7 @@ import 'package:flutter_cinema/features/movies/data/models/movie_response_model.
 /// Implementations of this class should provide the logic to retrieve
 /// movie data, specifically handling pagination through the `page` parameter.
 abstract class MoviesApiDataSource {
-  Future<MovieResponseModel> getMovies(int page);
+  Future<MovieResponseModel> getMoviesNow(int page);
 }
 
 /// A data source implementation for fetching movie data from the API.
@@ -30,7 +30,7 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   ///
   /// [page] The page number for pagination.
   @override
-  Future<MovieResponseModel> getMovies(int page) async {
+  Future<MovieResponseModel> getMoviesNow(int page) async {
     try {
       final res = await dio.get(
         '/movie/now_playing',

@@ -10,6 +10,7 @@ class MovieSwipe extends StatelessWidget {
   @override
   Widget build(_) {
     return FadeIn(
+      duration: Duration(milliseconds: 200),
       curve: Curves.easeInOut,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 25.0),

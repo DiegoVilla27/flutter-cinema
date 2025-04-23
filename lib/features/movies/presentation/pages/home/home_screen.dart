@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/now_playing/movies_now_playing_widget.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/movies_now_playing_widget.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
