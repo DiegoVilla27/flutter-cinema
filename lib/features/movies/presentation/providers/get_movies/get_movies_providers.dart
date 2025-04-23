@@ -1,0 +1,2 @@
+export 'package:flutter_cinema/features/movies/presentation/providers/get_movies/movies_usecase_provider.dart';
+export 'package:flutter_cinema/features/movies/presentation/providers/get_movies/movies_by_page_provider.dart';

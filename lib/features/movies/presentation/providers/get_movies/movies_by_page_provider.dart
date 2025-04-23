@@ -1,7 +1,7 @@
 import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/get_movies/movies_usecase_provider.dart';
-import 'package:flutter_cinema/shared/widgets/snackbar/snackbar_widget.dart';
+import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provides an [AsyncNotifierProvider] for managing the state of movie data
@@ -31,7 +31,9 @@ class MoviesNotifier extends AsyncNotifier<MovieResponseEntity> {
     await _updateState();
   }
 
-  /// Fetches movies for the initial current page.
+  /// Fetches movies asynchronously for the current page using the
+  /// [getMoviesUseCaseProvider]. Displays an error snackbar if the
+  /// operation fails and rethrows the exception.
   Future<MovieResponseEntity> _fetchMovies() async {
     final getMoviesUseCase = ref.read(getMoviesUseCaseProvider);
 
@@ -45,7 +47,9 @@ class MoviesNotifier extends AsyncNotifier<MovieResponseEntity> {
     }
   }
 
-  /// Updates the state with loading and fetched data.
+  /// Updates the state by setting it to [AsyncLoading] initially, then
+  /// attempts to fetch movies asynchronously, updating the state with
+  /// the result of the fetch operation.
   Future<void> _updateState() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => _fetchMovies());

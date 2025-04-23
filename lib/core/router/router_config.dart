@@ -1,5 +1,4 @@
-import 'package:flutter_cinema/core/router/router_name.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/home/home_screen.dart';
+import 'package:flutter_cinema/features/movies/presentation/routes/movies_routes.dart';
 import 'package:go_router/go_router.dart';
 
 /// A class that defines the application's routing configuration using GoRouter.
@@ -10,12 +9,6 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   static final GoRouter router = GoRouter(
     initialLocation: '/',
-    routes: [
-      GoRoute(
-        name: AppRouterName.home,
-        path: '/',
-        builder: (context, state) => const HomeScreen(),
-      ),
-    ],
+    routes: [...moviesRoutes],
   );
 }

@@ -1,0 +1,1 @@
+export 'package:flutter_cinema/features/movies/presentation/pages/home/home_screen.dart';
