@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cinema/core/router/router_name.dart';
 import 'package:flutter_cinema/shared/widgets/wave_bottom_navigation/widgets/waves_config/waves_config.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +19,9 @@ class WaveBottomBarNavigation extends StatelessWidget {
 
   // Maps tab index to named routes
   static final Map<int, String> routesList = {
-    0: 'home',
-    1: 'categories',
-    2: 'favorites',
+    0: AppRouterName.home,
+    1: AppRouterName.categories,
+    2: AppRouterName.favorites,
   };
 
   // Navigates to the corresponding named route

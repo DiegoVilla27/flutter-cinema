@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/core/router/router_fade.dart';
+import 'package:flutter_cinema/core/router/animations/router_fade_go.dart';
 import 'package:flutter_cinema/core/router/router_name.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/movies_screens.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
@@ -21,17 +21,17 @@ List<RouteBase> moviesRoutes = [
       GoRoute(
         name: AppRouterName.home,
         path: '/',
-        pageBuilder: (_, _) => buildFadePage(HomeScreen()),
+        pageBuilder: (_, _) => buildTransitionPageGo(HomeScreen()),
       ),
       GoRoute(
         name: AppRouterName.categories,
         path: '/categories',
-        pageBuilder: (_, _) => buildFadePage(CategoriesScreen()),
+        pageBuilder: (_, _) => buildTransitionPageGo(CategoriesScreen()),
       ),
       GoRoute(
         name: AppRouterName.favorites,
         path: '/favorites',
-        pageBuilder: (_, _) => buildFadePage(FavoritesScreen()),
+        pageBuilder: (_, _) => buildTransitionPageGo(FavoritesScreen()),
       ),
     ],
   ),
