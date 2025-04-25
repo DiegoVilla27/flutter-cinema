@@ -1,0 +1,1 @@
+export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/movies_now_playing_widget.dart';

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/swiper/movies_swiper_widget.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_by_page_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,10 +12,26 @@ class MoviesNowPlaying extends ConsumerWidget {
   Widget build(_, WidgetRef ref) {
     final moviesAsync = ref.watch(moviesNowNotifierProvider);
 
+    /// Returns a sublist of `movies` from the specified `start` index to the `end` index.
+    ///
+    /// If `end` exceeds the length of `movies`, the sublist will end at the last element.
+    ///
+    /// - Parameters:
+    ///   - movies: The list of `MovieEntity` objects to extract the sublist from.
+    ///   - start: The starting index for the sublist.
+    ///   - end: The ending index for the sublist.
+    ///
+    /// - Returns: A sublist of `MovieEntity` objects from `start` to `end`.
+    List<MovieEntity> getSublist(List<MovieEntity> movies, int start, int end) {
+      return movies.sublist(start, movies.length > end ? end : movies.length);
+    }
+
     return SizedBox(
       height: 210,
       child: moviesAsync.when(
-        data: (movieResponse) => MoviesSwiper(movies: movieResponse.results),
+        data:
+            (movieResponse) =>
+                MoviesSwiper(movies: getSublist(movieResponse.results, 0, 6)),
         loading:
             () => FadeIn(
               curve: Curves.easeInOut,
