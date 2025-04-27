@@ -5,10 +5,12 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(_) {
-    return Column(
-      children: [
-        Text('Favorites Screen'),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text('Favorites Screen'),
+        ],
+      ),
     );
   }
 }

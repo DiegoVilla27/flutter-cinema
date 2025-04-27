@@ -1,8 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/swiper/widgets/pagination/pagination.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/swiper/widgets/swipe/swipe.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_welcome/swiper/widgets/pagination/pagination.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_welcome/swiper/widgets/swipe/swipe.dart';
 
 class MoviesSwiper extends StatelessWidget {
   final List<MovieEntity> movies;

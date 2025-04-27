@@ -5,10 +5,12 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(_) {
-    return Column(
-      children: [
-        Text('Categories Screen'),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text('Categories Screen'),
+        ],
+      ),
     );
   }
 }

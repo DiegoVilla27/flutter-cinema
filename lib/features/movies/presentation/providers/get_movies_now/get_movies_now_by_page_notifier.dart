@@ -13,10 +13,20 @@ final moviesNowNotifierProvider =
     );
 
 class MoviesNowNotifier extends AsyncNotifier<MovieResponseEntity> {
-  int _currentPage = 1;
+  int currentPage = 1;
+  MovieResponseEntity moviesResponse = MovieResponseEntity(
+    page: 1,
+    results: [],
+    dates: DatesResponseEntity(
+      minimum: DateTime.now(),
+      maximum: DateTime.now(),
+    ),
+    totalPages: 1,
+    totalResults: 0,
+  );
 
   /// Asynchronously builds and returns a [MovieResponseEntity] by invoking
-  /// the getMoviesUseCase with the current page number.
+  /// the [getMoviesNowUseCase] with the current page number.
   @override
   Future<MovieResponseEntity> build() async {
     return _fetchMovies();
@@ -25,20 +35,20 @@ class MoviesNowNotifier extends AsyncNotifier<MovieResponseEntity> {
   /// Changes the current page and fetches movies for that page.
   /// If the page is less than 1, it resets to page 1.
   /// Updates the state with the new movies data.
-  Future<void> changePage(int page) async {
-    if (page < 1) _currentPage = 1;
-    _currentPage = page;
+  Future<void> nextPage() async {
+    currentPage++;
     await _updateState();
   }
 
   /// Fetches movies asynchronously for the current page using the
-  /// [getMoviesUseCaseProvider]. Displays an error snackbar if the
+  /// [getNowMoviesUseCaseProvider]. Displays an error snackbar if the
   /// operation fails and rethrows the exception.
   Future<MovieResponseEntity> _fetchMovies() async {
-    final getMoviesUseCase = ref.read(getNowMoviesUseCaseProvider);
-
+    final getMoviesNowUseCase = ref.read(getNowMoviesUseCaseProvider);
     try {
-      return await getMoviesUseCase(_currentPage);
+      MovieResponseEntity newMovies = await getMoviesNowUseCase(currentPage);
+      _concatMovies(newMovies);
+      return Future.value(moviesResponse);
     } catch (e) {
       scaffoldMessengerKey.currentState?.showSnackBar(
         SnackBarCustom.open(e.toString(), SnackbarType.error),
@@ -51,7 +61,15 @@ class MoviesNowNotifier extends AsyncNotifier<MovieResponseEntity> {
   /// attempts to fetch movies asynchronously, updating the state with
   /// the result of the fetch operation.
   Future<void> _updateState() async {
-    state = const AsyncLoading();
+    // state = const AsyncLoading();
     state = await AsyncValue.guard(() => _fetchMovies());
+  }
+
+  void _concatMovies(MovieResponseEntity newMovies) {
+    moviesResponse.page = newMovies.page;
+    moviesResponse.dates = newMovies.dates;
+    moviesResponse.totalPages = newMovies.totalPages;
+    moviesResponse.totalResults = newMovies.totalResults;
+    moviesResponse.results.addAll(newMovies.results);
   }
 }

@@ -33,16 +33,16 @@ class WaveBottomBarNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return WaveBottomBar(
       height: 50,
-      backgroundColor: Colors.deepPurpleAccent,
       amplitude: 50,
       waveLength: 150,
       elevation: 5,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       duration: const Duration(milliseconds: 150),
       direction: WaveBottomBarDirection.down,
       activeTopMargin: -20,
       curve: Curves.easeInOut,
       unselectedLabelMargin: 0,
-      unselectedLabelStyle: const TextStyle(fontSize: 12),
+      unselectedLabelStyle: const TextStyle(fontSize: 12, color: Colors.white60),
       items: [
         _buildItem(Icons.home_rounded, 'Home'),
         _buildItem(Icons.label_rounded, 'Categories'),
@@ -62,9 +62,9 @@ class WaveBottomBarNavigation extends StatelessWidget {
           color: Colors.deepPurpleAccent,
           borderRadius: BorderRadius.circular(25),
         ),
-        child: Icon(icon, color: Colors.white),
+        child: Icon(icon, color: Colors.white, size: 30,),
       ),
-      icon: Icon(icon, color: Colors.white),
+      icon: Icon(icon, color: Colors.white60),
       label: label,
     );
   }

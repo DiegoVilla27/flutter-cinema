@@ -13,7 +13,7 @@ List<RouteBase> moviesRoutes = [
   ShellRoute(
     builder: (_, _, child) {
       return Scaffold(
-        body: SafeArea(child: SingleChildScrollView(child: child)),
+        body: SafeArea(child: child),
         bottomNavigationBar: const WaveBottomBarNavigation(),
       );
     },

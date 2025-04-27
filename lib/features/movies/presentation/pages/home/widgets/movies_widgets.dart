@@ -1,1 +1,2 @@
-export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_now_playing/movies_now_playing_widget.dart';
+export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_horizontal/movies_horizontal.dart';
+export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_welcome/movies_welcome.dart';

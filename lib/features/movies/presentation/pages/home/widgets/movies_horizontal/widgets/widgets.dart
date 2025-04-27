@@ -1,0 +1,2 @@
+export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_horizontal/widgets/title/title.dart';
+export 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_horizontal/widgets/cards/cards.dart';
