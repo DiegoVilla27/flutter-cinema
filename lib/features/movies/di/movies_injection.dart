@@ -3,6 +3,9 @@ import 'package:flutter_cinema/features/movies/data/data_source/movies_datasourc
 import 'package:flutter_cinema/features/movies/data/repositories/movies_repository_impl.dart';
 import 'package:flutter_cinema/features/movies/domain/repositories/movies_repository.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_now.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_popular.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_top.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_upcoming.dart';
 
 /// Initializes dependency injections for the movies feature.
 /// 
@@ -23,5 +26,14 @@ Future<void> initMoviesInjections() async {
   // UseCases
   di.registerLazySingleton<GetMoviesNowUseCase>(
     () => GetMoviesNowUseCase(repository: di()),
+  );
+  di.registerLazySingleton<GetMoviesPopularUseCase>(
+    () => GetMoviesPopularUseCase(repository: di()),
+  );
+  di.registerLazySingleton<GetMoviesUpcomingUseCase>(
+    () => GetMoviesUpcomingUseCase(repository: di()),
+  );
+  di.registerLazySingleton<GetMoviesTopUseCase>(
+    () => GetMoviesTopUseCase(repository: di()),
   );
 }

@@ -33,14 +33,15 @@ class WaveBottomBarNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return WaveBottomBar(
       height: 50,
-      amplitude: 50,
-      waveLength: 150,
-      elevation: 5,
+      amplitude: 20,
+      waveLength: 100,
+      elevation: 15,
       backgroundColor: Theme.of(context).colorScheme.surface,
       duration: const Duration(milliseconds: 150),
-      direction: WaveBottomBarDirection.down,
+      direction: WaveBottomBarDirection.up,
       activeTopMargin: -20,
       curve: Curves.easeInOut,
+      showSelectedLabel: false,
       unselectedLabelMargin: 0,
       unselectedLabelStyle: const TextStyle(fontSize: 12, color: Colors.white60),
       items: [
@@ -69,3 +70,17 @@ class WaveBottomBarNavigation extends StatelessWidget {
     );
   }
 }
+
+// Example usage of WaveBottomBar type DOWN
+// height: 50,
+// amplitude: 50,
+// waveLength: 150,
+// elevation: 5,
+// backgroundColor: Theme.of(context).colorScheme.surface,
+// duration: const Duration(milliseconds: 150),
+// direction: WaveBottomBarDirection.down,
+// activeTopMargin: -20,
+// curve: Curves.easeInOut,
+// showSelectedLabel: false,
+// unselectedLabelMargin: 0,
+// unselectedLabelStyle: const TextStyle(fontSize: 12, color: Colors.white60),

@@ -7,13 +7,23 @@ class MovieHorizontalCard extends StatelessWidget {
 
   const MovieHorizontalCard({super.key, required this.movie});
 
-  IconData _showStar(double rating) {
-    if (rating < 3.5) {
-      return Icons.star_outline;
-    } else if (rating < 7) {
-      return Icons.star_half;
+  IconData _iconStar() {
+    if (movie.voteAverage < 5) {
+      return Icons.star_outline_rounded;
+    } else if (movie.voteAverage < 7) {
+      return Icons.star_half_rounded;
     } else {
-      return Icons.star;
+      return Icons.star_rounded;
+    }
+  }
+
+  Color _colorStar() {
+    if (movie.voteAverage < 5) {
+      return Colors.white54;
+    } else if (movie.voteAverage < 7) {
+      return Colors.amber;
+    } else {
+      return Colors.deepPurpleAccent;
     }
   }
 
@@ -52,11 +62,11 @@ class MovieHorizontalCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(_showStar(movie.voteAverage), color: Colors.amber, size: 20),
+              Icon(_iconStar(), color: _colorStar(), size: 20),
               SizedBox(width: 4),
               Text(
                 formatCurrency(movie.voteAverage, decimalDigits: 1),
-                style: TextStyle(color: Colors.amber, fontSize: 12),
+                style: TextStyle(color: _colorStar(), fontSize: 12),
               ),
             ],
           ),

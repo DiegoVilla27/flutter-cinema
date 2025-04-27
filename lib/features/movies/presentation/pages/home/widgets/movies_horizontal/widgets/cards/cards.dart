@@ -4,20 +4,27 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_horizontal/widgets/cards/widgets/card/card.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_by_page_notifier.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/base/base_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MoviesHorizontalCards extends ConsumerStatefulWidget {
+class MoviesHorizontalCards<T extends MoviesNotifierBase>
+    extends ConsumerStatefulWidget {
   final AsyncValue<MovieResponseEntity> moviesAsync;
+  final AsyncNotifierProvider<T, MovieResponseEntity> provider;
 
-  const MoviesHorizontalCards({super.key, required this.moviesAsync});
+  const MoviesHorizontalCards({
+    super.key,
+    required this.moviesAsync,
+    required this.provider,
+  });
 
   @override
-  ConsumerState<MoviesHorizontalCards> createState() =>
-      _MoviesHorizontalCardsState();
+  ConsumerState<MoviesHorizontalCards<T>> createState() =>
+      _MoviesHorizontalCardsState<T>();
 }
 
-class _MoviesHorizontalCardsState extends ConsumerState<MoviesHorizontalCards> {
+class _MoviesHorizontalCardsState<T extends MoviesNotifierBase>
+    extends ConsumerState<MoviesHorizontalCards<T>> {
   final ScrollController _controller = ScrollController();
   bool _isLoadingMore = false;
   Timer? _debounce;
@@ -42,7 +49,7 @@ class _MoviesHorizontalCardsState extends ConsumerState<MoviesHorizontalCards> {
           !_isLoadingMore) {
         _isLoadingMore = true;
         try {
-          await ref.read(moviesNowNotifierProvider.notifier).nextPage();
+          await ref.read(widget.provider.notifier).nextPage();
         } finally {
           _debounce = Timer(
             const Duration(milliseconds: 500),

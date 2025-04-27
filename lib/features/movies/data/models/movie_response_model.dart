@@ -7,13 +7,13 @@ import 'package:flutter_cinema/features/movies/data/models/movie_model.dart';
 /// representation, facilitating easy serialization and deserialization.
 ///
 /// Attributes:
-///   dates (Dates): The date range for the movies.
-///   page (int): The current page number of the results.
-///   results (List<MovieModel>): A list of movies returned in the response.
-///   totalPages (int): The total number of pages available.
-///   totalResults (int): The total number of results available.
+///   [dates] (Dates): Optional date range for the movies.
+///   [page] (int): The current page number of the results.
+///   [results] (List<MovieModel>): A list of movies returned in the response.
+///   [totalPages] (int): The total number of pages available.
+///   [totalResults] (int): The total number of results available.
 class MovieResponseModel {
-  final DatesResponseModel dates;
+  final DatesResponseModel? dates;
   final int page;
   final List<MovieModel> results;
   final int totalPages;
@@ -29,7 +29,10 @@ class MovieResponseModel {
 
   factory MovieResponseModel.fromJson(Map<String, dynamic> json) =>
       MovieResponseModel(
-        dates: DatesResponseModel.fromJson(json['dates']),
+        dates:
+            (json['dates'] != null)
+                ? DatesResponseModel.fromJson(json['dates'])
+                : null,
         page: json['page'] ?? 1,
         results: List<MovieModel>.from(
           json['results'].map((movie) => MovieModel.fromJson(movie)),
@@ -39,7 +42,7 @@ class MovieResponseModel {
       );
 
   Map<String, dynamic> toJson() => {
-    'dates': dates.toJson(),
+    'dates': dates?.toJson() ?? {},
     'page': page,
     'results': results.map((movie) => movie.toJson()).toList(),
     'total_pages': totalPages,

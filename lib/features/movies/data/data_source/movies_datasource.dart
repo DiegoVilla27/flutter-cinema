@@ -10,6 +10,9 @@ import 'package:flutter_cinema/features/movies/data/models/movie_response_model.
 /// movie data, specifically handling pagination through the `page` parameter.
 abstract class MoviesApiDataSource {
   Future<MovieResponseModel> getMoviesNow(int page);
+  Future<MovieResponseModel> getMoviesPopular(int page);
+  Future<MovieResponseModel> getMoviesUpcoming(int page);
+  Future<MovieResponseModel> getMoviesTop(int page);
 }
 
 /// A data source implementation for fetching movie data from the API.
@@ -34,6 +37,78 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
     try {
       final res = await dio.get(
         '/movie/now_playing',
+        queryParameters: {'page': page},
+      );
+      MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
+        res.data,
+      );
+      return movieResponseModel;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
+    }
+  }
+
+  /// Fetches a list of movies currently playing in theaters.
+  ///
+  /// Retrieves movie data from the API using the specified page number for pagination.
+  /// Returns a [MovieResponseModel] containing the movie data.
+  ///
+  /// Throws an exception if the API call fails, which is handled by the [ExceptionHandler].
+  ///
+  /// [page] The page number for pagination.
+  @override
+  Future<MovieResponseModel> getMoviesPopular(int page) async {
+    try {
+      final res = await dio.get(
+        '/movie/popular',
+        queryParameters: {'page': page},
+      );
+      MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
+        res.data,
+      );
+      return movieResponseModel;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
+    }
+  }
+
+  /// Fetches a list of movies currently playing in theaters.
+  ///
+  /// Retrieves movie data from the API using the specified page number for pagination.
+  /// Returns a [MovieResponseModel] containing the movie data.
+  ///
+  /// Throws an exception if the API call fails, which is handled by the [ExceptionHandler].
+  ///
+  /// [page] The page number for pagination.
+  @override
+  Future<MovieResponseModel> getMoviesUpcoming(int page) async {
+    try {
+      final res = await dio.get(
+        '/movie/upcoming',
+        queryParameters: {'page': page},
+      );
+      MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
+        res.data,
+      );
+      return movieResponseModel;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
+    }
+  }
+
+  /// Fetches a list of movies currently playing in theaters.
+  ///
+  /// Retrieves movie data from the API using the specified page number for pagination.
+  /// Returns a [MovieResponseModel] containing the movie data.
+  ///
+  /// Throws an exception if the API call fails, which is handled by the [ExceptionHandler].
+  ///
+  /// [page] The page number for pagination.
+  @override
+  Future<MovieResponseModel> getMoviesTop(int page) async {
+    try {
+      final res = await dio.get(
+        '/movie/top_rated',
         queryParameters: {'page': page},
       );
       MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(

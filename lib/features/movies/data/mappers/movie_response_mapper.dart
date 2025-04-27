@@ -11,7 +11,12 @@ class MovieResponseMapper {
   static MovieResponseEntity movieResponseModelToEntity(
     MovieResponseModel movieResponse,
   ) => MovieResponseEntity(
-    dates: DatesResponseMapper.datesResponseModelToEntity(movieResponse.dates),
+    dates:
+        (movieResponse.dates != null)
+            ? DatesResponseMapper.datesResponseModelToEntity(
+              movieResponse.dates!,
+            )
+            : null,
     page: movieResponse.page,
     results:
         movieResponse.results

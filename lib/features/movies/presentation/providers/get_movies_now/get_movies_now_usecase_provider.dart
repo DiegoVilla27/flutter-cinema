@@ -7,6 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// This provider utilizes the Riverpod package to manage the state and 
 /// lifecycle of the [GetMoviesNowUseCase] instance, ensuring that it is 
 /// properly injected and available for use within the application.
-final getNowMoviesUseCaseProvider = Provider<GetMoviesNowUseCase>((ref) {
+final getMoviesNowUseCaseProvider = Provider<GetMoviesNowUseCase>((ref) {
   return di<GetMoviesNowUseCase>();
 });

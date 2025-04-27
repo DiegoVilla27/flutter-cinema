@@ -25,4 +25,52 @@ class MoviesRepositoryImpl implements MoviesRepository {
         MovieResponseMapper.movieResponseModelToEntity(res);
     return movieResponseEntity;
   }
+
+  /// Fetches a list of movies for a given page number.
+  ///
+  /// This method retrieves movie data from the data source and maps it
+  /// to a domain entity.
+  ///
+  /// [page] The page number for which to fetch movies.
+  ///
+  /// Returns a [Future] containing a [MovieResponseEntity] with the movie data.
+  @override
+  Future<MovieResponseEntity> getMoviesPopular(int page) async {
+    final MovieResponseModel res = await moviesDataSourceImpl.getMoviesPopular(page);
+    MovieResponseEntity movieResponseEntity =
+        MovieResponseMapper.movieResponseModelToEntity(res);
+    return movieResponseEntity;
+  }
+
+  /// Fetches a list of movies for a given page number.
+  ///
+  /// This method retrieves movie data from the data source and maps it
+  /// to a domain entity.
+  ///
+  /// [page] The page number for which to fetch movies.
+  ///
+  /// Returns a [Future] containing a [MovieResponseEntity] with the movie data.
+  @override
+  Future<MovieResponseEntity> getMoviesUpcoming(int page) async {
+    final MovieResponseModel res = await moviesDataSourceImpl.getMoviesUpcoming(page);
+    MovieResponseEntity movieResponseEntity =
+        MovieResponseMapper.movieResponseModelToEntity(res);
+    return movieResponseEntity;
+  }
+
+  /// Fetches a list of movies for a given page number.
+  ///
+  /// This method retrieves movie data from the data source and maps it
+  /// to a domain entity.
+  ///
+  /// [page] The page number for which to fetch movies.
+  ///
+  /// Returns a [Future] containing a [MovieResponseEntity] with the movie data.
+  @override
+  Future<MovieResponseEntity> getMoviesTop(int page) async {
+    final MovieResponseModel res = await moviesDataSourceImpl.getMoviesTop(page);
+    MovieResponseEntity movieResponseEntity =
+        MovieResponseMapper.movieResponseModelToEntity(res);
+    return movieResponseEntity;
+  }
 }

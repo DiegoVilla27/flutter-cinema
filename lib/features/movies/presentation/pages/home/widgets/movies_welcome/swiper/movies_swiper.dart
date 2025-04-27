@@ -15,6 +15,8 @@ class MoviesSwiper extends StatelessWidget {
       viewportFraction: 0.75,
       scale: 0.8,
       autoplay: false,
+      loop: true,
+      autoplayDelay: 3000,
       itemBuilder: (_, int index) => MovieSwipe(movie: movies[index]),
       itemCount: movies.length,
       pagination: swiperPagination(),

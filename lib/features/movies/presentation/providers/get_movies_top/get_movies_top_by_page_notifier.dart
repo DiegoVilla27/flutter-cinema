@@ -1,19 +1,19 @@
 import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/base/base_notifier.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_usecase_provider.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_top/get_movies_top_usecase_provider.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Provides an [AsyncNotifierProvider] for managing the state of movie data
-/// asynchronously. The provider uses [MoviesNowNotifier] to fetch and handle
+/// asynchronously. The provider uses [MoviesTopNotifier] to fetch and handle
 /// movie responses, returning a [MovieResponseEntity] as the state.
-final moviesNowNotifierProvider =
-    AsyncNotifierProvider<MoviesNowNotifier, MovieResponseEntity>(
-      () => MoviesNowNotifier(),
+final moviesTopNotifierProvider =
+    AsyncNotifierProvider<MoviesTopNotifier, MovieResponseEntity>(
+      () => MoviesTopNotifier(),
     );
 
-class MoviesNowNotifier extends MoviesNotifierBase {
+class MoviesTopNotifier extends MoviesNotifierBase {
   int currentPage = 1;
   MovieResponseEntity moviesResponse = MovieResponseEntity(
     page: 1,
@@ -24,7 +24,7 @@ class MoviesNowNotifier extends MoviesNotifierBase {
   );
 
   /// Asynchronously builds and returns a [MovieResponseEntity] by invoking
-  /// the [getMoviesNowUseCase] with the current page number.
+  /// the [getMoviesTopUseCase] with the current page number.
   @override
   Future<MovieResponseEntity> build() async {
     return _fetchMovies();
@@ -40,12 +40,12 @@ class MoviesNowNotifier extends MoviesNotifierBase {
   }
 
   /// Fetches movies asynchronously for the current page using the
-  /// [getMoviesNowUseCaseProvider]. Displays an error snackbar if the
+  /// [getMoviesTopUseCaseProvider]. Displays an error snackbar if the
   /// operation fails and rethrows the exception.
   Future<MovieResponseEntity> _fetchMovies() async {
-    final getMoviesNowUseCase = ref.read(getMoviesNowUseCaseProvider);
+    final getMoviesTopUseCase = ref.read(getMoviesTopUseCaseProvider);
     try {
-      MovieResponseEntity newMovies = await getMoviesNowUseCase(currentPage);
+      MovieResponseEntity newMovies = await getMoviesTopUseCase(currentPage);
       _concatMovies(newMovies);
       return Future.value(moviesResponse);
     } catch (e) {
