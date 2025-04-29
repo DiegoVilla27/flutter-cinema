@@ -1,25 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cinema/core/environments/environments.dart';
 import 'package:flutter_cinema/core/errors/errors_handler.dart';
-import 'package:flutter_cinema/features/movies/data/models/movie_response_model.dart';
+import 'package:flutter_cinema/features/movies/data/models/actor/actor_response_model.dart';
+import 'package:flutter_cinema/features/movies/data/models/detail/detail_model.dart';
+import 'package:flutter_cinema/features/movies/data/models/movie/movie_response_model.dart';
 
 /// An abstract class defining the contract for a data source that fetches
 /// movie data from an API.
-///
-/// Implementations of this class should provide the logic to retrieve
-/// movie data, specifically handling pagination through the `page` parameter.
 abstract class MoviesApiDataSource {
   Future<MovieResponseModel> getMoviesNow(int page);
   Future<MovieResponseModel> getMoviesPopular(int page);
   Future<MovieResponseModel> getMoviesUpcoming(int page);
   Future<MovieResponseModel> getMoviesTop(int page);
+  Future<DetailModel> getMovieDetails(int idMovie);
+  Future<ActorResponseModel> getMovieActors(int idMovie);
 }
 
 /// A data source implementation for fetching movie data from the API.
 class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: Environments.apiUrl,
+      baseUrl: '${Environments.apiUrl}/movie',
       queryParameters: {'api_key': Environments.apiKey},
     ),
   );
@@ -36,7 +37,7 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   Future<MovieResponseModel> getMoviesNow(int page) async {
     try {
       final res = await dio.get(
-        '/movie/now_playing',
+        '/now_playing',
         queryParameters: {'page': page},
       );
       MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
@@ -59,10 +60,7 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   @override
   Future<MovieResponseModel> getMoviesPopular(int page) async {
     try {
-      final res = await dio.get(
-        '/movie/popular',
-        queryParameters: {'page': page},
-      );
+      final res = await dio.get('/popular', queryParameters: {'page': page});
       MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
         res.data,
       );
@@ -83,10 +81,7 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   @override
   Future<MovieResponseModel> getMoviesUpcoming(int page) async {
     try {
-      final res = await dio.get(
-        '/movie/upcoming',
-        queryParameters: {'page': page},
-      );
+      final res = await dio.get('/upcoming', queryParameters: {'page': page});
       MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
         res.data,
       );
@@ -107,14 +102,33 @@ class MoviesApiDataSourceImpl implements MoviesApiDataSource {
   @override
   Future<MovieResponseModel> getMoviesTop(int page) async {
     try {
-      final res = await dio.get(
-        '/movie/top_rated',
-        queryParameters: {'page': page},
-      );
+      final res = await dio.get('/top_rated', queryParameters: {'page': page});
       MovieResponseModel movieResponseModel = MovieResponseModel.fromJson(
         res.data,
       );
       return movieResponseModel;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
+    }
+  }
+
+  @override
+  Future<DetailModel> getMovieDetails(int idMovie) async {
+    try {
+      final res = await dio.get('/$idMovie');
+      DetailModel detailModel = DetailModel.fromJson(res.data);
+      return detailModel;
+    } catch (e, st) {
+      throw ExceptionHandler.handle(e, st);
+    }
+  }
+
+  @override
+  Future<ActorResponseModel> getMovieActors(int idMovie) async {
+    try {
+      final res = await dio.get('/$idMovie/credits');
+      ActorResponseModel actorResponseModel = ActorResponseModel.fromJson(res.data);
+      return actorResponseModel;
     } catch (e, st) {
       throw ExceptionHandler.handle(e, st);
     }

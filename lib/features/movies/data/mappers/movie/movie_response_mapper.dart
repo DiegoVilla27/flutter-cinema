@@ -1,6 +1,6 @@
-import 'package:flutter_cinema/features/movies/data/mappers/movie_mapper.dart';
-import 'package:flutter_cinema/features/movies/data/models/movie_response_model.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/data/mappers/movie/movie_mapper.dart';
+import 'package:flutter_cinema/features/movies/data/models/movie/movie_response_model.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_response_entity.dart';
 
 /// Converts a [MovieResponseModel] to a [MovieResponseEntity].
 ///

@@ -1,7 +1,8 @@
+import 'package:flutter_cinema/core/di/injections.dart';
 import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_top.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/base/base_notifier.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_top/get_movies_top_usecase_provider.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,13 +40,10 @@ class MoviesTopNotifier extends MoviesNotifierBase {
     await _updateState();
   }
 
-  /// Fetches movies asynchronously for the current page using the
-  /// [getMoviesTopUseCaseProvider]. Displays an error snackbar if the
-  /// operation fails and rethrows the exception.
   Future<MovieResponseEntity> _fetchMovies() async {
-    final getMoviesTopUseCase = ref.read(getMoviesTopUseCaseProvider);
     try {
-      MovieResponseEntity newMovies = await getMoviesTopUseCase(currentPage);
+      GetMoviesTopUseCase moviesTopUseCase = di<GetMoviesTopUseCase>();
+      MovieResponseEntity newMovies = await moviesTopUseCase(currentPage);
       _concatMovies(newMovies);
       return Future.value(moviesResponse);
     } catch (e) {

@@ -1,4 +1,4 @@
-import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
 
 /// Represents the response model for a movie API call, containing
 /// pagination details and a list of movie entities.

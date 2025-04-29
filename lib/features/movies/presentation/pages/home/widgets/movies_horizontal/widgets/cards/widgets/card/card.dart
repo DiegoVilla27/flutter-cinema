@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
+import 'package:flutter_cinema/core/router/router_name.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
 import 'package:flutter_cinema/shared/utils/numbers/format.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieHorizontalCard extends StatelessWidget {
   final MovieEntity movie;
@@ -35,21 +37,28 @@ class MovieHorizontalCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 5.0,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              movie.posterPath,
-              fit: BoxFit.cover,
-              height: 185,
-              loadingBuilder: (_, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  width: double.infinity,
-                  height: 185,
-                  color: Colors.black12,
-                );
-              },
+          GestureDetector(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                movie.posterPath,
+                fit: BoxFit.cover,
+                height: 185,
+                loadingBuilder: (_, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    width: double.infinity,
+                    height: 185,
+                    color: Colors.black12,
+                  );
+                },
+              ),
             ),
+            onTap:
+                () => context.pushNamed(
+                  AppRouterName.movie,
+                  pathParameters: {"id": movie.id.toString()},
+                ),
           ),
           Tooltip(
             message: movie.title,

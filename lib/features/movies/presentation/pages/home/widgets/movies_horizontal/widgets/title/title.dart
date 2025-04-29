@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_response_entity.dart';
 import 'package:flutter_cinema/shared/utils/dates/format.dart';
 
 class MoviesHorizontalTitle extends StatelessWidget {

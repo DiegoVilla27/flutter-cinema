@@ -1,6 +1,6 @@
 import 'package:flutter_cinema/core/environments/environments.dart';
-import 'package:flutter_cinema/features/movies/data/models/movie_model.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
+import 'package:flutter_cinema/features/movies/data/models/movie/movie_model.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
 
 /// Converts a [MovieModel] instance to a [MovieEntity] instance.
 ///

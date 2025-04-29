@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_welcome/swiper/movies_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

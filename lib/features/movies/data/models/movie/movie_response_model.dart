@@ -1,4 +1,4 @@
-import 'package:flutter_cinema/features/movies/data/models/movie_model.dart';
+import 'package:flutter_cinema/features/movies/data/models/movie/movie_model.dart';
 
 /// A model representing the response from a movie API call, containing
 /// pagination details and a list of movies.

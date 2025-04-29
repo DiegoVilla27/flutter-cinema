@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/domain/entities/movie_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
 
 class MovieSwipe extends StatelessWidget {
   final MovieEntity movie;

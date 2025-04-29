@@ -1,4 +1,4 @@
-import 'package:flutter_cinema/features/movies/domain/entities/movie_response_entity.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_response_entity.dart';
 import 'package:flutter_cinema/features/movies/domain/repositories/movies_repository.dart';
 
 /// A use case class for retrieving movies from the repository.
