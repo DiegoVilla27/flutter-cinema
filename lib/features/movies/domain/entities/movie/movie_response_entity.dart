@@ -17,7 +17,7 @@ class MovieResponseEntity {
   int totalResults;
 
   MovieResponseEntity({
-    required this.dates,
+    this.dates,
     required this.page,
     required this.results,
     required this.totalPages,

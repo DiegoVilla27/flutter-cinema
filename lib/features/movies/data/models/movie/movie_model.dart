@@ -1,11 +1,7 @@
-/// A model class representing a movie with various attributes.
+/// Data model representing a movie.
 ///
-/// This class includes properties such as `adult`, `backdropPath`, `genreIds`,
-/// `id`, `originalLanguage`, `originalTitle`, `overview`, `popularity`,
-/// `posterPath`, `releaseDate`, `title`, `video`, `voteAverage`, and `voteCount`.
-///
-/// Provides a factory constructor `fromJson` to create an instance from a JSON
-/// map and a method `toJson` to convert an instance back to a JSON map.
+/// This model is part of the data layer and should be mapped to a
+/// [MovieEntity] before being used in the domain or presentation layers.
 class MovieModel {
   final bool adult;
   final String backdropPath;
@@ -16,7 +12,7 @@ class MovieModel {
   final String overview;
   final double popularity;
   final String posterPath;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final String title;
   final bool video;
   final double voteAverage;
@@ -32,13 +28,18 @@ class MovieModel {
     required this.overview,
     required this.popularity,
     required this.posterPath,
-    required this.releaseDate,
+    this.releaseDate,
     required this.title,
     required this.video,
     required this.voteAverage,
     required this.voteCount,
   });
 
+  /// Creates a [MovieModel] instance from a JSON map.
+  ///
+  /// This method ensures that the fields are properly initialized,
+  /// defaulting to appropriate values if the respective fields are
+  /// missing or invalid in the JSON.
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
     adult: json['adult'] ?? false,
     backdropPath: json['backdrop_path'] ?? '',
@@ -49,28 +50,23 @@ class MovieModel {
     overview: json['overview'] ?? '',
     popularity: (json['popularity'] ?? 0).toDouble(),
     posterPath: json['poster_path'] ?? '',
-    releaseDate: DateTime.parse(json['release_date']),
+    releaseDate: _parseDate(json['release_date']),
     title: json['title'] ?? '',
     video: json['video'] ?? false,
     voteAverage: (json['vote_average'] ?? 0).toDouble(),
     voteCount: json['vote_count'] ?? 0,
   );
 
-  Map<String, dynamic> toJson() => {
-    'adult': adult,
-    'backdrop_path': backdropPath,
-    'genre_ids': genreIds,
-    'id': id,
-    'original_language': originalLanguage,
-    'original_title': originalTitle,
-    'overview': overview,
-    'popularity': popularity,
-    'poster_path': posterPath,
-    "release_date":
-        "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
-    'title': title,
-    'video': video,
-    'vote_average': voteAverage,
-    'vote_count': voteCount,
-  };
+  /// Helper function to parse the release date from the JSON response.
+  ///
+  /// This function handles parsing the date, ensuring the correct format
+  /// or returning `null` if the date is invalid or missing.
+  static DateTime? _parseDate(dynamic date) {
+    if (date == null || date.toString().isEmpty) return null;
+    try {
+      return DateTime.parse(date);
+    } catch (e) {
+      return null;
+    }
+  }
 }

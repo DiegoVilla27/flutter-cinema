@@ -6,14 +6,23 @@ import 'package:flutter_cinema/features/movies/presentation/providers/base/base_
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Provides an [AsyncNotifierProvider] for managing the state of movie data
-/// asynchronously. The provider uses [MoviesTopNotifier] to fetch and handle
-/// movie responses, returning a [MovieResponseEntity] as the state.
+/// A provider for managing the state of movies that are currently top.
+///
+/// The `moviesTopNotifierProvider` is an `AsyncNotifierProvider` that provides an instance of `MoviesTopNotifier`
+/// and its associated state, which is a `MovieResponseEntity`. The state represents the list of movies that are currently
+/// top.
 final moviesTopNotifierProvider =
     AsyncNotifierProvider<MoviesTopNotifier, MovieResponseEntity>(
       () => MoviesTopNotifier(),
     );
 
+/// A notifier responsible for fetching and managing the state of currently top movies.
+///
+/// The `MoviestopNotifier` extends `MoviesNotifierBase` and manages the state of a list of currently top movies,
+/// including handling pagination (for fetching additional pages of results) and updating the UI state accordingly.
+///
+/// It interacts with a use case (`GetMoviesTopUseCase`) to fetch the list of currently top movies from an API or database.
+/// The state is represented by a `MovieResponseEntity`, which contains the movie results and pagination information.
 class MoviesTopNotifier extends MoviesNotifierBase {
   int currentPage = 1;
   MovieResponseEntity moviesResponse = MovieResponseEntity(
@@ -24,22 +33,41 @@ class MoviesTopNotifier extends MoviesNotifierBase {
     totalResults: 0,
   );
 
-  /// Asynchronously builds and returns a [MovieResponseEntity] by invoking
-  /// the [getMoviesTopUseCase] with the current page number.
+  /// Builds the notifier's state by fetching the movie data.
+  ///
+  /// This method is called when the notifier is created and is responsible for initializing the data fetching process.
+  /// It uses the `_fetchMovies` method to load the list of currently top movies and return it wrapped in an `AsyncValue`.
+  ///
+  /// Returns:
+  /// - A `Future<MovieResponseEntity>` containing the list of currently top movies, which will be used to update the state of the notifier.
   @override
   Future<MovieResponseEntity> build() async {
     return _fetchMovies();
   }
 
-  /// Changes the current page and fetches movies for that page.
-  /// If the page is less than 1, it resets to page 1.
-  /// Updates the state with the new movies data.
+  /// Increments the current page and loads the next set of movies.
+  ///
+  /// This method is responsible for fetching the next page of movies. It increments the `currentPage` and then updates the notifier's state
+  /// by calling `_updateState`. This will fetch the movies for the next page and update the state accordingly.
+  ///
+  /// Returns:
+  /// - A `Future<void>`, indicating that the operation has completed.
   @override
   Future<void> nextPage() async {
     currentPage++;
     await _updateState();
   }
 
+  /// Fetches the list of movies for the current page.
+  ///
+  /// This method fetches the movies for the current page by calling the `GetMoviesTopUseCase` use case. If the request is successful,
+  /// it updates the `moviesResponse` object with the new movie data. In case of an error, it shows a snack bar with the error message.
+  ///
+  /// Returns:
+  /// - A `Future<MovieResponseEntity>`, representing the fetched movie response, which includes the movie data and pagination.
+  ///
+  /// Throws:
+  /// - Any errors that occur during the fetching process will be rethrown after being displayed in a snack bar.
   Future<MovieResponseEntity> _fetchMovies() async {
     try {
       GetMoviesTopUseCase moviesTopUseCase = di<GetMoviesTopUseCase>();
@@ -54,14 +82,32 @@ class MoviesTopNotifier extends MoviesNotifierBase {
     }
   }
 
-  /// Updates the state by setting it to [AsyncLoading] initially, then
-  /// attempts to fetch movies asynchronously, updating the state with
-  /// the result of the fetch operation.
+  /// Updates the state with the fetched movies.
+  ///
+  /// This method updates the state by calling the `_fetchMovies()` method inside an `AsyncValue.guard` to handle loading and error states.
+  /// It sets the state to a loading state initially and then updates it with the result of the `_fetchMovies()` method.
+  ///
+  /// This method ensures that the state is correctly managed, allowing the UI to reflect the loading, success, or error states.
+  ///
+  /// Returns:
+  /// - A `Future<void>`, representing the completion of the state update process.
   Future<void> _updateState() async {
     // state = const AsyncLoading();
     state = await AsyncValue.guard(() => _fetchMovies());
   }
 
+  /// Concatenates new movies to the existing movie response.
+  ///
+  /// This method updates the current `moviesResponse` by merging the data from the newly fetched `newMovies`.
+  /// It updates the `page`, `dates`, `totalPages`, `totalResults`, and appends the new list of movie results to the existing ones.
+  ///
+  /// This ensures that the movie list is incrementally updated when new movies are fetched, without overwriting the existing ones.
+  ///
+  /// Parameters:
+  /// - [newMovies]: A `MovieResponseEntity` containing the newly fetched movies and their metadata.
+  ///
+  /// Returns:
+  /// - Nothing. This method directly updates the `moviesResponse` object.
   void _concatMovies(MovieResponseEntity newMovies) {
     moviesResponse.page = newMovies.page;
     moviesResponse.dates = newMovies.dates;

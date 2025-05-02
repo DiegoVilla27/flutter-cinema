@@ -7,4 +7,5 @@ class AppRouterName {
   static const String categories = 'categories';
   static const String favorites = 'favorites';
   static const String movie = 'movie';
+  static const String search = 'search';
 }

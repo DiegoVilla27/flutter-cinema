@@ -3,6 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/actor/actor_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// A widget that displays a horizontal list of actors associated with a movie.
+///
+/// This widget takes an `AsyncValue` containing a list of `ActorEntity` objects and renders
+/// a horizontal list of actor profile images. The list is displayed using a `ListView.builder`,
+/// and each actor's name is shown below their image with a tooltip that displays their name when hovered over.
+///
+/// Each actor's image is fetched from the network, with loading and error handling mechanisms in place.
+/// A gradient overlay is applied to the actor's image to improve text readability. The actor's name is displayed
+/// at the bottom of their image with a limited character width, and the text is truncated if it overflows.
+///
+/// Parameters:
+/// - [actorsAsync]: An `AsyncValue` that contains the list of `ActorEntity` objects. The widget reacts
+///   to changes in the state of this async value (loading, error, or data).
+///
+/// Returns:
+/// - A `SizedBox` containing a horizontal `ListView.builder` widget that displays actor profile images.
 class MovieActors extends StatelessWidget {
   final AsyncValue<List<ActorEntity>> actorsAsync;
 
@@ -44,7 +60,6 @@ class MovieActors extends StatelessWidget {
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
                                   width: double.infinity,
-                    
                                   color: Colors.white10,
                                   child: Center(
                                     child: Icon(

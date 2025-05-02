@@ -1,3 +1,8 @@
+/// Represents the detailed information of a movie or show.
+///
+/// This class encapsulates detailed information, including basic data
+/// such as the movie's title, poster, release date, and additional details
+/// like genres, popularity, vote average, and more.
 class DetailEntity {
   final bool adult;
   final String backdropPath;
@@ -30,6 +35,10 @@ class DetailEntity {
   });
 }
 
+/// Represents a genre associated with a movie or show.
+///
+/// This class holds the information about a genre, including its
+/// unique identifier and the genre's name.
 class GenreEntity {
   final int id;
   final String name;

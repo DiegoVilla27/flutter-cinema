@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cinema/core/router/router_name.dart';
+import 'package:go_router/go_router.dart';
 
+/// A custom app bar widget for the Cinema application.
+///
+/// This widget provides a top bar with a movie icon, the "Cinema" title, and a search button
+/// that navigates to the search screen. The app bar is designed to be flexible with spacing
+/// and padding around its elements.
+///
+/// The main layout consists of:
+/// - A movie icon on the left with a specific color.
+/// - A "Cinema" text label with bold font weight and a moderate font size.
+/// - A search icon button on the right that, when pressed, navigates to the search screen.
+///
+/// It is built using a `Row` widget that aligns the elements horizontally with a `Spacer`
+/// widget between the title and the search button.
 class AppBarCustom extends StatelessWidget {
   const AppBarCustom({super.key});
 
@@ -22,7 +37,10 @@ class AppBarCustom extends StatelessWidget {
             style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          IconButton(
+            onPressed: () => context.pushNamed(AppRouterName.search),
+            icon: const Icon(Icons.search),
+          ),
         ],
       ),
     );

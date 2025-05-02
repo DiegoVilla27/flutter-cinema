@@ -37,7 +37,7 @@ class WaveBottomBarNavigation extends StatelessWidget {
       waveLength: 100,
       elevation: 15,
       backgroundColor: Theme.of(context).colorScheme.surface,
-      duration: const Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 200),
       direction: WaveBottomBarDirection.up,
       activeTopMargin: -20,
       curve: Curves.easeInOut,

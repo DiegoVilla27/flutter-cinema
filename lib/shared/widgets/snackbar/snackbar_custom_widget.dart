@@ -11,6 +11,15 @@ enum SnackbarType { info, success, error, warning }
 /// optionally accepting a custom duration. The SnackBar includes an icon
 /// corresponding to the type, a bold title, and a close button.
 class SnackBarCustom {
+  /// A static map that associates different types of snackbars with their corresponding colors.
+  ///
+  /// This map is used to define a color scheme based on the type of message being displayed
+  /// in the Snackbar. Each `SnackbarType` is mapped to a color that helps visually distinguish
+  /// the message type for the user. The available types are:
+  /// - `info`: Blue color for informational messages.
+  /// - `success`: Green color for success messages.
+  /// - `warning`: Orange color for warning messages.
+  /// - `error`: Red color for error messages.
   static const _colors = {
     SnackbarType.info: Colors.blue,
     SnackbarType.success: Colors.green,
@@ -18,6 +27,15 @@ class SnackBarCustom {
     SnackbarType.error: Colors.red,
   };
 
+  /// A static map that associates different types of snackbars with their corresponding icons.
+  ///
+  /// This map is used to define an icon for each type of message displayed in the Snackbar.
+  /// Each `SnackbarType` is mapped to an icon that helps visually represent the message type.
+  /// The available types are:
+  /// - `info`: Info icon (rounded) for informational messages.
+  /// - `success`: Check-circle icon for success messages.
+  /// - `warning`: Warning icon (rounded) for warning messages.
+  /// - `error`: Error icon (rounded) for error messages.
   static const _icons = {
     SnackbarType.info: Icons.info_rounded,
     SnackbarType.success: Icons.check_circle,

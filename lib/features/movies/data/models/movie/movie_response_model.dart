@@ -1,17 +1,10 @@
 import 'package:flutter_cinema/features/movies/data/models/movie/movie_model.dart';
 
-/// A model representing the response from a movie API call, containing
-/// pagination details and a list of movies.
+/// Data model representing a response containing a list of movies.
 ///
-/// This class provides methods to convert between JSON and the model
-/// representation, facilitating easy serialization and deserialization.
-///
-/// Attributes:
-///   [dates] (Dates): Optional date range for the movies.
-///   [page] (int): The current page number of the results.
-///   [results] (List<MovieModel>): A list of movies returned in the response.
-///   [totalPages] (int): The total number of pages available.
-///   [totalResults] (int): The total number of results available.
+/// This model represents the structure of the response returned from
+/// an API endpoint that provides paginated movie results. It includes
+/// metadata about the search (pagination details) and a list of movies.
 class MovieResponseModel {
   final DatesResponseModel? dates;
   final int page;
@@ -20,13 +13,19 @@ class MovieResponseModel {
   final int totalResults;
 
   MovieResponseModel({
-    required this.dates,
+    this.dates,
     required this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
+  /// Creates a [MovieResponseModel] instance from a JSON map.
+  ///
+  /// This method initializes the [MovieResponseModel] from a JSON object,
+  /// ensuring that all fields are properly populated, including handling
+  /// the optional `dates` field and mapping the `results` list to a list of
+  /// [MovieModel] instances.
   factory MovieResponseModel.fromJson(Map<String, dynamic> json) =>
       MovieResponseModel(
         dates:
@@ -40,40 +39,26 @@ class MovieResponseModel {
         totalPages: json['total_pages'] ?? 0,
         totalResults: json['total_results'] ?? 0,
       );
-
-  Map<String, dynamic> toJson() => {
-    'dates': dates?.toJson() ?? {},
-    'page': page,
-    'results': results.map((movie) => movie.toJson()).toList(),
-    'total_pages': totalPages,
-    'total_results': totalResults,
-  };
 }
 
-/// A model representing a date range with maximum and minimum dates.
+/// Data model representing the pagination date range in a movie response.
 ///
-/// This class provides methods to convert between JSON and the model
-/// representation, facilitating easy serialization and deserialization.
-///
-/// Attributes:
-///   maximum (DateTime): The maximum date in the range.
-///   minimum (DateTime): The minimum date in the range.
+/// This model contains the start and end dates that define the range of
+/// available movies in a paginated API response. It includes the `maximum`
+/// and `minimum` dates, which are used to filter movie results by date.
 class DatesResponseModel {
   final DateTime maximum;
   final DateTime minimum;
 
   DatesResponseModel({required this.maximum, required this.minimum});
 
+  /// Creates a [DatesResponseModel] instance from a JSON map.
+  ///
+  /// This method initializes the [DatesResponseModel] from a JSON object,
+  /// parsing the `maximum` and `minimum` date strings into [DateTime] objects.
   factory DatesResponseModel.fromJson(Map<String, dynamic> json) =>
       DatesResponseModel(
         maximum: DateTime.parse(json['maximum']),
         minimum: DateTime.parse(json['minimum']),
       );
-
-  Map<String, dynamic> toJson() => {
-    "maximum":
-        "${maximum.year.toString().padLeft(4, '0')}-${maximum.month.toString().padLeft(2, '0')}-${maximum.day.toString().padLeft(2, '0')}",
-    "minimum":
-        "${minimum.year.toString().padLeft(4, '0')}-${minimum.month.toString().padLeft(2, '0')}-${minimum.day.toString().padLeft(2, '0')}",
-  };
 }

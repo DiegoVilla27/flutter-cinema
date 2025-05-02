@@ -6,6 +6,7 @@ import 'package:flutter_cinema/features/movies/domain/use_cases/get_movie_actors
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movie_details.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_now.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_popular.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_search.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_top.dart';
 import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_upcoming.dart';
 
@@ -43,5 +44,8 @@ Future<void> initMoviesInjections() async {
   );
   di.registerLazySingleton<GetMovieActorsUseCase>(
     () => GetMovieActorsUseCase(repository: di()),
+  );
+  di.registerLazySingleton<GetMoviesSearchUseCase>(
+    () => GetMoviesSearchUseCase(repository: di()),
   );
 }

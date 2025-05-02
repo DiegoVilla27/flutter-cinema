@@ -8,6 +8,25 @@ import 'package:flutter_cinema/features/movies/presentation/providers/get_movies
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// A screen widget that displays a scrolling list of movie sections, including "Now Playing", 
+/// "Upcoming", "Popular", and "Top Rated" movie categories.
+///
+/// This widget uses multiple movie data providers (such as `moviesNowNotifierProvider`, 
+/// `moviesPopularNotifierProvider`, etc.) to fetch and display the corresponding movie sections 
+/// inside horizontally scrollable lists. The screen is wrapped inside a `CustomScrollView` with a 
+/// floating app bar at the top that contains the custom title widget [AppBarCustom]. Each movie 
+/// category is represented by a [MoviesHorizontal] widget, and the welcome section is displayed 
+/// using the [MoviesWelcome] widget. The data is fetched asynchronously using Riverpod's state 
+/// management system, reacting to changes in the data providers.
+///
+/// Parameters:
+/// - None (the data is fetched using Riverpod state providers).
+///
+/// Returns:
+/// - A [CustomScrollView] containing a floating app bar and a list of horizontally scrollable 
+///   movie sections. Each movie section is dynamically updated based on the data from the 
+///   respective providers (`moviesNowNotifierProvider`, `moviesUpcomingNotifierProvider`, 
+///   `moviesPopularNotifierProvider`, `moviesTopNotifierProvider`).
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 

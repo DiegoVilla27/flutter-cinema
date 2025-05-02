@@ -25,7 +25,7 @@ class MovieMapper {
         (movie.posterPath != '')
             ? '${Environments.apiImages}/${movie.posterPath}'
             : '',
-    releaseDate: movie.releaseDate,
+    releaseDate: (movie.releaseDate != null) ? movie.releaseDate : null,
     title: movie.title,
     video: movie.video,
     voteAverage: movie.voteAverage,

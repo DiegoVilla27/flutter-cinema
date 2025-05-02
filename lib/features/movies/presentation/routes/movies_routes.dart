@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cinema/core/router/animations/router_fade_go.dart';
 import 'package:flutter_cinema/core/router/router_name.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/movies_screens.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/search/search_screen.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,7 +17,7 @@ List<RouteBase> moviesRoutes = [
       bool showBottomNav = _disabledBottomNavigator(context);
 
       return Scaffold(
-        body: SafeArea(child: child),
+        body: child,
         bottomNavigationBar:
             showBottomNav
                 ? SlideInUp(child: const WaveBottomBarNavigation())
@@ -49,8 +50,27 @@ List<RouteBase> moviesRoutes = [
       ),
     ],
   ),
+  GoRoute(
+    name: AppRouterName.search,
+    path: '/search',
+    pageBuilder: (_, _) {
+      return buildTransitionPageGo(SearchScreen());
+    },
+  ),
 ];
 
+/// Determines whether the bottom navigation bar should be disabled based on the current route.
+///
+/// This function checks the current route against a predefined list of routes that do not require
+/// the bottom navigation bar. If the current route is not in the list, the bottom navigation bar
+/// will be enabled; otherwise, it will be disabled.
+///
+/// - `context`: The build context used to get the current route information.
+///
+/// Returns:
+/// - `true` if the bottom navigation bar should be disabled (i.e., the current route is in the
+///   `routesWithoutBottomNav` list).
+/// - `false` if the bottom navigation bar should be enabled.
 bool _disabledBottomNavigator(BuildContext context) {
   final List<String> routesWithoutBottomNav = [AppRouterName.movie];
   return !routesWithoutBottomNav.contains(GoRouter.of(context).state.name);
