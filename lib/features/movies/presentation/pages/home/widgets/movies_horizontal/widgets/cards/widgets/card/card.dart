@@ -2,19 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cinema/core/router/router_name.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entity.dart';
 import 'package:flutter_cinema/shared/utils/numbers/format.dart';
+import 'package:flutter_cinema/shared/utils/stars/color_star.dart';
+import 'package:flutter_cinema/shared/utils/stars/icon_star.dart';
 import 'package:go_router/go_router.dart';
 
 /// A stateless widget that displays a compact horizontal movie card with poster, title, and rating.
 ///
 /// This widget is designed for use in horizontally scrollable movie lists. It shows
-/// the movie's poster image, a tooltip with its title, and a visual rating indicator 
+/// the movie's poster image, a tooltip with its title, and a visual rating indicator
 /// (star icon + formatted score).
-///
-/// The star icon and its color are dynamically determined based on the movie's 
-/// `voteAverage`, offering quick visual feedback about the movie's rating:
-/// - Less than 5: outlined star with light color (poor rating)
-/// - Between 5 and 7: half star with amber color (average rating)
-/// - 7 or greater: full star with deep purple accent (high rating)
 ///
 /// When the user taps on the poster, it navigates to the movie details page using
 /// named routing with the movie ID.
@@ -28,45 +24,6 @@ class MovieHorizontalCard extends StatelessWidget {
   final MovieEntity movie;
 
   const MovieHorizontalCard({super.key, required this.movie});
-
-  /// Returns a star icon that visually represents the movie's average vote score.
-  ///
-  /// The icon varies depending on the `voteAverage`:
-  /// - Less than 5: an outlined star (`Icons.star_outline_rounded`)
-  /// - Between 5 (inclusive) and 7 (exclusive): a half star (`Icons.star_half_rounded`)
-  /// - 7 or greater: a full star (`Icons.star_rounded`)
-  ///
-  /// Returns:
-  /// - [IconData] representing the appropriate star icon based on the rating.
-  IconData _iconStar() {
-    if (movie.voteAverage < 5) {
-      return Icons.star_outline_rounded;
-    } else if (movie.voteAverage < 7) {
-      return Icons.star_half_rounded;
-    } else {
-      return Icons.star_rounded;
-    }
-  }
-
-  /// Returns a color that visually represents the movie's average vote score,
-  /// intended to match the star icon's visual style.
-  ///
-  /// The color varies depending on the `voteAverage`:
-  /// - Less than 5: [Colors.white54] (low rating)
-  /// - Between 5 (inclusive) and 7 (exclusive): [Colors.amber] (average rating)
-  /// - 7 or greater: [Colors.deepPurpleAccent] (high rating)
-  ///
-  /// Returns:
-  /// - [Color] indicating the rating level through visual color feedback.
-  Color _colorStar() {
-    if (movie.voteAverage < 5) {
-      return Colors.white54;
-    } else if (movie.voteAverage < 7) {
-      return Colors.amber;
-    } else {
-      return Colors.deepPurpleAccent;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,11 +67,18 @@ class MovieHorizontalCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(_iconStar(), color: _colorStar(), size: 20),
+              Icon(
+                iconStar(movie.voteAverage),
+                color: colorStar(movie.voteAverage),
+                size: 20,
+              ),
               SizedBox(width: 4),
               Text(
                 formatCurrency(movie.voteAverage, decimalDigits: 1),
-                style: TextStyle(color: _colorStar(), fontSize: 12),
+                style: TextStyle(
+                  color: colorStar(movie.voteAverage),
+                  fontSize: 12,
+                ),
               ),
             ],
           ),

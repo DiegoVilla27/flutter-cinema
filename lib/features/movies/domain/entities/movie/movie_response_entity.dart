@@ -2,7 +2,7 @@ import 'package:flutter_cinema/features/movies/domain/entities/movie/movie_entit
 
 /// Represents the response model for a movie API call, containing
 /// pagination details and a list of movie entities.
-/// 
+///
 /// Attributes:
 /// - [dates]: Date range for the movies.
 /// - [page]: Current page number of the results.
@@ -23,10 +23,18 @@ class MovieResponseEntity {
     required this.totalPages,
     required this.totalResults,
   });
+
+  factory MovieResponseEntity.empty() => MovieResponseEntity(
+    page: 1,
+    results: [],
+    dates: null,
+    totalPages: 1,
+    totalResults: 0,
+  );
 }
 
 /// Represents a date range with a maximum and minimum date.
-/// 
+///
 /// Attributes:
 /// - `maximum`: The latest date in the range.
 /// - `minimum`: The earliest date in the range.

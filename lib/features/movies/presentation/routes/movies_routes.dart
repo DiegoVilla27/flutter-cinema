@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cinema/core/router/animations/router_fade_go.dart';
+import 'package:flutter_cinema/core/router/animations/router_fade_push.dart';
 import 'package:flutter_cinema/core/router/router_name.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/movies_screens.dart';
-import 'package:flutter_cinema/features/movies/presentation/pages/search/search_screen.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,14 +14,14 @@ import 'package:go_router/go_router.dart';
 List<RouteBase> moviesRoutes = [
   ShellRoute(
     builder: (BuildContext context, GoRouterState state, child) {
-      bool showBottomNav = _disabledBottomNavigator(context);
+      // bool showBottomNav = _disabledBottomNavigator(context);
 
       return Scaffold(
         body: child,
-        bottomNavigationBar:
-            showBottomNav
-                ? SlideInUp(child: const WaveBottomBarNavigation())
-                : null,
+        bottomNavigationBar: SlideInUp(child: const WaveBottomBarNavigation()),
+        // showBottomNav
+        //     ? SlideInUp(child: const WaveBottomBarNavigation())
+        //     : null,
       );
     },
     routes: [
@@ -40,25 +40,20 @@ List<RouteBase> moviesRoutes = [
         path: '/favorites',
         pageBuilder: (_, _) => buildTransitionPageGo(FavoritesScreen()),
       ),
-      GoRoute(
-        name: AppRouterName.movie,
-        path: '/movie/:id',
-        pageBuilder: (_, GoRouterState state) {
-          final id = state.pathParameters['id']!;
-          return buildTransitionPageGo(MovieScreen(id: int.parse(id)));
-        },
-      ),
     ],
   ),
   GoRoute(
-    name: AppRouterName.search,
-    path: '/search',
-    pageBuilder: (_, _) {
-      return buildTransitionPageGo(SearchScreen());
+    name: AppRouterName.movie,
+    path: '/movie/:id',
+    pageBuilder: (_, GoRouterState state) {
+      final id = state.pathParameters['id']!;
+      return buildTransitionPagePush(MovieScreen(id: int.parse(id)));
     },
   ),
 ];
 
+/// Example to disabled bottom navigation bar in any route in ShellRoute
+///
 /// Determines whether the bottom navigation bar should be disabled based on the current route.
 ///
 /// This function checks the current route against a predefined list of routes that do not require
@@ -71,7 +66,7 @@ List<RouteBase> moviesRoutes = [
 /// - `true` if the bottom navigation bar should be disabled (i.e., the current route is in the
 ///   `routesWithoutBottomNav` list).
 /// - `false` if the bottom navigation bar should be enabled.
-bool _disabledBottomNavigator(BuildContext context) {
-  final List<String> routesWithoutBottomNav = [AppRouterName.movie];
-  return !routesWithoutBottomNav.contains(GoRouter.of(context).state.name);
-}
+// bool _disabledBottomNavigator(BuildContext context) {
+//   final List<String> routesWithoutBottomNav = [AppRouterName.movie];
+//   return !routesWithoutBottomNav.contains(GoRouter.of(context).state.name);
+// }

@@ -5,15 +5,6 @@ import 'package:flutter_cinema/features/movies/domain/use_cases/get_movies_searc
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// The initial state for movie search results.
-final MovieResponseEntity initialStateMovies = MovieResponseEntity(
-  page: 1,
-  results: [],
-  dates: null,
-  totalPages: 1,
-  totalResults: 0,
-);
-
 /// A provider for the `MoviesSearchNotifier` that handles searching for movies.
 ///
 /// The `moviesSearchNotifierProvider` is an `AsyncNotifierProvider` that manages the state of searching for movies.
@@ -42,7 +33,7 @@ class MoviesSearchNotifier
     extends AutoDisposeAsyncNotifier<MovieResponseEntity> {
   String currentQuery = "";
   int currentPage = 1;
-  MovieResponseEntity moviesResponse = initialStateMovies;
+  MovieResponseEntity moviesResponse = MovieResponseEntity.empty();
 
   /// Builds the initial state for the notifier.
   ///
@@ -53,7 +44,7 @@ class MoviesSearchNotifier
   /// - A `FutureOr` of `MovieResponseEntity` that throws an error, indicating no data is available at the moment.
   @override
   Future<MovieResponseEntity> build() async {
-    return Future.error("No data loaded yet");
+    return Future.value(MovieResponseEntity.empty());
   }
 
   /// Fetches the list of movies for the current page.
@@ -97,8 +88,8 @@ class MoviesSearchNotifier
   /// Returns:
   /// - A `Future<void>`, where the state is updated after fetching the movie data.
   Future<void> loadMovies(String query) async {
+    resetMovies();
     currentQuery = query;
-    moviesResponse = initialStateMovies;
     // state = const AsyncLoading();
     state = await AsyncValue.guard(() => _fetchMovies());
   }
@@ -115,6 +106,18 @@ class MoviesSearchNotifier
   Future<void> nextPage() async {
     currentPage++;
     _fetchMovies();
+  }
+
+  /// Resets the movie search state to its initial values.
+  ///
+  /// This method clears the current search query and resets the current page to 1.
+  /// It also sets the movies response back to its initial state and emits it as
+  /// the new state using `AsyncValue.data`.
+  void resetMovies() {
+    currentQuery = '';
+    currentPage = 1;
+    moviesResponse = MovieResponseEntity.empty();
+    state = AsyncValue.data(moviesResponse);
   }
 
   /// Concatenates new movies to the existing movie response.

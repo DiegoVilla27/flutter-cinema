@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/core/router/router_name.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_cinema/features/movies/presentation/delegates/search_movie_delegate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A custom app bar widget for the Cinema application.
 ///
@@ -15,11 +15,11 @@ import 'package:go_router/go_router.dart';
 ///
 /// It is built using a `Row` widget that aligns the elements horizontally with a `Spacer`
 /// widget between the title and the search button.
-class AppBarCustom extends StatelessWidget {
+class AppBarCustom extends ConsumerWidget {
   const AppBarCustom({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(
@@ -38,7 +38,11 @@ class AppBarCustom extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () => context.pushNamed(AppRouterName.search),
+            onPressed:
+                () => showSearch(
+                  context: context,
+                  delegate: MovieSearchDelegate(ref: ref),
+                ),
             icon: const Icon(Icons.search),
           ),
         ],

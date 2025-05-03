@@ -65,25 +65,27 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
   Widget build(_) {
     final detailAsync = ref.watch(movieDetailNotifierProvider);
 
-    return detailAsync.when(
-      data: (movie) {
-        return FadeIn(
-          child: CustomScrollView(
-            slivers: [
-              MovieAppBar(title: movie.title, posterPath: movie.posterPath),
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return MovieInfo(movie: movie);
-                }, childCount: 1),
-              ),
-            ],
-          ),
-        );
-      },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, _) {
-        return SizedBox();
-      },
+    return Scaffold(
+      body: detailAsync.when(
+        data: (movie) {
+          return FadeIn(
+            child: CustomScrollView(
+              slivers: [
+                MovieAppBar(title: movie.title, posterPath: movie.posterPath),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return MovieInfo(movie: movie);
+                  }, childCount: 1),
+                ),
+              ],
+            ),
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (_, _) {
+          return SizedBox();
+        },
+      ),
     );
   }
 }

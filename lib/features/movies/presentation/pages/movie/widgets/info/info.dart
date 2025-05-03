@@ -79,6 +79,7 @@ class _MovieInfoState extends ConsumerState<MovieInfo> {
           Text(widget.movie.overview),
           SizedBox(height: 20),
           MovieActors(actorsAsync: actorsAsync),
+          SizedBox(height: 40),
         ],
       ),
     );

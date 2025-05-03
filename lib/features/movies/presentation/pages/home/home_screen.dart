@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cinema/features/movies/presentation/pages/home/widgets/movies_widgets.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_by_page_notifier.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_popular/get_movies_popular_by_page_notifier.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_top/get_movies_top_by_page_notifier.dart';
-import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_upcoming/get_movies_upcoming_by_page_notifier.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_now/get_movies_now_notifier.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_popular/get_movies_popular_notifier.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_top/get_movies_top_notifier.dart';
+import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_upcoming/get_movies_upcoming_notifier.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
