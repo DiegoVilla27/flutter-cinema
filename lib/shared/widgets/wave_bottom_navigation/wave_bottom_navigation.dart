@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 /// A custom bottom navigation bar using [WaveBottomBar] with route navigation.
 ///
 /// This stateless widget renders a wave-style bottom bar with three items:
-/// Home, Categories, and Favorites. When an item is tapped, it navigates
+/// Home and Favorites. When an item is tapped, it navigates
 /// to the corresponding named route using the [GoRouter] context.
 ///
 /// The visual style includes an animated wave effect, customized icons,
@@ -20,8 +20,7 @@ class WaveBottomBarNavigation extends StatelessWidget {
   // Maps tab index to named routes
   static final Map<int, String> routesList = {
     0: AppRouterName.home,
-    1: AppRouterName.categories,
-    2: AppRouterName.favorites,
+    1: AppRouterName.favorites,
   };
 
   // Navigates to the corresponding named route
@@ -46,7 +45,6 @@ class WaveBottomBarNavigation extends StatelessWidget {
       unselectedLabelStyle: const TextStyle(fontSize: 12, color: Colors.white60),
       items: [
         _buildItem(Icons.home_rounded, 'Home'),
-        _buildItem(Icons.label_rounded, 'Categories'),
         _buildItem(Icons.favorite_rounded, 'Favorites'),
       ],
       onTap: (index) => _goToPage(context, index),

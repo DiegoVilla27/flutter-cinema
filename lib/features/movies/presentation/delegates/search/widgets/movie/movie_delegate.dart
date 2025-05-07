@@ -20,48 +20,46 @@ class MovieDelegate extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 16),
       height: 200,
-      child: Row(
-        spacing: 15.0,
-        children: [_imageContainer(context), _infoContainer()],
+      child: GestureDetector(
+        child: Row(
+          spacing: 15.0,
+          children: [_imageContainer(), _infoContainer()],
+        ),
+        onTap:
+            () => context.pushNamed(
+              AppRouterName.movie,
+              pathParameters: {"id": movie.id.toString()},
+            ),
       ),
     );
   }
 
   /// Builds the poster image with rounded corners, loading and error placeholders.
-  /// Wraps the image with a [GestureDetector] to handle navigation to the movie detail.
   ///
-  /// @param context The build context used for navigation.
-  /// @returns A [GestureDetector] widget containing the poster image.
-  GestureDetector _imageContainer(BuildContext context) {
-    return GestureDetector(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Image.network(
-          movie.posterPath,
-          fit: BoxFit.cover,
-          width: 120,
-          height: 185,
-          loadingBuilder: (_, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Container(width: 120, height: 185, color: Colors.black12);
-          },
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              width: 120,
-              height: 185,
-              color: Colors.white10,
-              child: Center(
-                child: Icon(Icons.photo_size_select_actual_rounded, size: 40),
-              ),
-            );
-          },
-        ),
+  /// @returns A [ClipRRect] widget containing the poster image.
+  ClipRRect _imageContainer() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Image.network(
+        movie.posterPath,
+        fit: BoxFit.cover,
+        width: 120,
+        height: 185,
+        loadingBuilder: (_, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Container(width: 120, height: 185, color: Colors.black12);
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            width: 120,
+            height: 185,
+            color: Colors.white10,
+            child: Center(
+              child: Icon(Icons.photo_size_select_actual_rounded, size: 40),
+            ),
+          );
+        },
       ),
-      onTap:
-          () => context.pushNamed(
-            AppRouterName.movie,
-            pathParameters: {"id": movie.id.toString()},
-          ),
     );
   }
 

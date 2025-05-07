@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cinema/features/movies/domain/entities/detail/detail_entity.dart';
+import 'package:flutter_cinema/features/movies/presentation/pages/movie/widgets/appbar/widgets/favorite/favorite.dart';
 import 'package:go_router/go_router.dart';
 
 /// A custom app bar widget designed for movie detail screens, featuring a large header
@@ -11,17 +13,15 @@ import 'package:go_router/go_router.dart';
 /// button is positioned in the top-left corner for navigation (typically to go back to the previous screen).
 ///
 /// Parameters:
-/// - [title]: The title of the movie to be displayed in the app bar.
-/// - [posterPath]: The URL of the movie's poster image to be displayed as the background.
+/// - [movie]: The details of movie to be displayed in the app bar.
 ///
 /// Returns:
 /// - A `SliverAppBar` widget with a flexible space that contains the movie title, backdrop poster,
 ///   and a floating action button for navigation.
 class MovieAppBar extends StatelessWidget {
-  final String title;
-  final String posterPath;
+  final DetailEntity movie;
 
-  const MovieAppBar({super.key, required this.title, required this.posterPath});
+  const MovieAppBar({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class MovieAppBar extends StatelessWidget {
             collapseMode: CollapseMode.parallax,
             centerTitle: true,
             title: Text(
-              title,
+              movie.title,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
               maxLines: 1,
@@ -44,7 +44,26 @@ class MovieAppBar extends StatelessWidget {
             background: Stack(
               children: [
                 SizedBox.expand(
-                  child: Image.network(posterPath, fit: BoxFit.cover),
+                  child: Image.network(
+                    movie.posterPath,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (_, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(color: Colors.black12);
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: double.infinity,
+                        color: Colors.white10,
+                        child: Center(
+                          child: Icon(
+                            Icons.photo_size_select_actual_rounded,
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Positioned.fill(
                   child: DecoratedBox(
@@ -65,12 +84,14 @@ class MovieAppBar extends StatelessWidget {
             top: 50,
             left: 10,
             child: FloatingActionButton(
+              heroTag: 'back-button',
               onPressed: () => context.pop(),
               mini: true,
               backgroundColor: Colors.deepPurpleAccent,
               child: Icon(Icons.chevron_left),
             ),
           ),
+          MovieFavoriteBtn(movie: movie),
         ],
       ),
     );

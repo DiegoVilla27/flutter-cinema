@@ -4,7 +4,6 @@
 /// of different routes used in the app.
 class AppRouterName {
   static const String home = 'home';
-  static const String categories = 'categories';
   static const String favorites = 'favorites';
   static const String movie = 'movie';
   static const String search = 'search';

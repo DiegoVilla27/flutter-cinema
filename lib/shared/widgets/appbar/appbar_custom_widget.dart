@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/presentation/delegates/search_movie_delegate.dart';
+import 'package:flutter_cinema/features/movies/presentation/delegates/search/search_movie_delegate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A custom app bar widget for the Cinema application.

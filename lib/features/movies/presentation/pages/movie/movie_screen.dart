@@ -71,7 +71,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
           return FadeIn(
             child: CustomScrollView(
               slivers: [
-                MovieAppBar(title: movie.title, posterPath: movie.posterPath),
+                MovieAppBar(movie: movie),
                 SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     return MovieInfo(movie: movie);

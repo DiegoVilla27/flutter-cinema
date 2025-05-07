@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cinema/features/movies/presentation/delegates/widgets/movie/movie_delegate.dart';
+import 'package:flutter_cinema/features/movies/presentation/delegates/search/widgets/movie/movie_delegate.dart';
 import 'package:flutter_cinema/features/movies/presentation/providers/get_movies_search/get_movies_search_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

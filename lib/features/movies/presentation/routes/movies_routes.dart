@@ -31,11 +31,6 @@ List<RouteBase> moviesRoutes = [
         pageBuilder: (_, _) => buildTransitionPageGo(HomeScreen()),
       ),
       GoRoute(
-        name: AppRouterName.categories,
-        path: '/categories',
-        pageBuilder: (_, _) => buildTransitionPageGo(CategoriesScreen()),
-      ),
-      GoRoute(
         name: AppRouterName.favorites,
         path: '/favorites',
         pageBuilder: (_, _) => buildTransitionPageGo(FavoritesScreen()),

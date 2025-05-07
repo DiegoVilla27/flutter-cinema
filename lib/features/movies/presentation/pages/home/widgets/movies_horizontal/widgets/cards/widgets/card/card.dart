@@ -48,6 +48,19 @@ class MovieHorizontalCard extends StatelessWidget {
                     color: Colors.black12,
                   );
                 },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: double.infinity,
+                    height: 185,
+                    color: Colors.white10,
+                    child: Center(
+                      child: Icon(
+                        Icons.photo_size_select_actual_rounded,
+                        size: 40,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             onTap:

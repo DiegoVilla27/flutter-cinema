@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_cinema/core/di/injections.dart';
 import 'package:flutter_cinema/core/states/scaffold/scaffold_key_state.dart';
 import 'package:flutter_cinema/features/movies/domain/entities/detail/detail_entity.dart';
-import 'package:flutter_cinema/features/movies/domain/use_cases/get_movie_details.dart';
+import 'package:flutter_cinema/features/movies/domain/use_cases/api/get_movie_details.dart';
 import 'package:flutter_cinema/shared/widgets/global_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
